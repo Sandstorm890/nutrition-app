@@ -6,7 +6,7 @@ export const setFoods = (foods) => ({type: 'GOT_FOODS', payload: foods})
 export const getFoods = () => {
 
     return (dispatch) => {
-        fetch('FoodData_Branded_Test.json')
+        fetch('FoodData.json')
         .then(r => r.json())
         .then(json => {
             dispatch(setFoods(json))
