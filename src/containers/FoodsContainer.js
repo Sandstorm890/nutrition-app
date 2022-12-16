@@ -25,18 +25,21 @@ class FoodsContainer extends React.Component {
     createFoodCards() {
         let foods = this.props.foods.FoundationFoods
         // console.log(this.props.foods.FoundationFoods[0])
-
+        
         if (foods && this.state.search.length !== 0) {
             foods = foods.filter(food => food.description.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
         }
 
         if (foods) {
-            console.log((foods[0].foodNutrients.find(foodNutrient => foodNutrient.nutrient.name == "Carbohydrate, by difference")).amount)
+
             console.log(foods)
+            // console.log(foods[0].foodPortions[0].measureUnit.name)
+            console.log(foods[0].foodPortions[0].measureUnit.name)
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
-                carbs={(food.foodNutrients.find(foodNutrient => foodNutrient.nutrient.name == "Carbohydrate, by difference")) ? (food.foodNutrients.find(foodNutrient => foodNutrient.nutrient.name == "Carbohydrate, by difference")).amount : 0}
+                carbs={(food.foodNutrients.find(foodNutrient => foodNutrient.nutrient.name === "Carbohydrate, by difference")) ? food.foodNutrients.find(foodNutrient => foodNutrient.nutrient.name === "Carbohydrate, by difference").amount : "Undefined"}
+                servingSize={(food.foodPortions.find(foodPortion => foodPortion.measureUnit)) ? food.foodPortions.find(foodPortion => foodPortion.measureUnit).measureUnit.name : "Undefined"}
                 />)
         }
     }

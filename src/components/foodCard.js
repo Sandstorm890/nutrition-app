@@ -9,8 +9,7 @@ function FoodCard(props) {
             <h3>{props.description}</h3>
             <h3>Carbohydrates:</h3>
             <h3>{props.carbs}g</h3>
-            <h3>Serving Size:</h3>
-            <h3>{props.servingSize}</h3>
+            <h3>per {props.servingSize}</h3>
         </div>
     )
 }
