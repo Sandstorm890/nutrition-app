@@ -24,7 +24,6 @@ class FoodsContainer extends React.Component {
 
     createFoodCards() {
         let foods = this.props.foods.FoundationFoods
-        // console.log(this.props.foods.FoundationFoods[0])
         
         if (foods && this.state.search.length !== 0) {
             foods = foods.filter(food => food.description.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
@@ -32,9 +31,7 @@ class FoodsContainer extends React.Component {
 
         if (foods) {
 
-            console.log(foods)
-            // console.log(foods[0].foodPortions[0].measureUnit.name)
-            console.log(foods[0].foodPortions[0].measureUnit.name)
+            // console.log(foods)
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
