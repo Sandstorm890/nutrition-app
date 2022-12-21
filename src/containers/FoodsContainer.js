@@ -31,7 +31,6 @@ class FoodsContainer extends React.Component {
 
         if (foods) {
 
-            // console.log(foods)
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
@@ -44,7 +43,7 @@ class FoodsContainer extends React.Component {
     render() {
         return (
             <div className="">
-                <h2>Search:</h2>
+                <h3>Search:</h3>
                 <input type="text" vlaue={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
                 {this.createFoodCards()}
             </div>
