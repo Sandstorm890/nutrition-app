@@ -52,9 +52,10 @@ class FoodsContainer extends React.Component {
         return (
             <div className="bg-">
                 {/* <h3 className="pt-3 text-">Search:</h3> */}
-                <input type="text" className="mt-3" placeholder="search" value={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
+                <input type="text" className="mt-4  rounded border-info" placeholder="search" value={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
                 <p>{this.state.noFoodsFoundMessage}</p>
-                {this.createFoodCards()}
+                <div className="card-group">{this.createFoodCards()}</div>
+                
             </div>
         )
     }
