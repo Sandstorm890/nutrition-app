@@ -7,7 +7,8 @@ import {getFoods} from '../actions/foodActions.js'
 class FoodsContainer extends React.Component {
 
     state = {
-        search: ""
+        search: "",
+        noFoodsFoundMessage: ""
     }
 
     componentDidMount() {
@@ -17,9 +18,9 @@ class FoodsContainer extends React.Component {
     handleFormChange = (e) => {
         const value = e.target.value
         this.setState({
+            ...this.state,
             search: value
         })
-        // console.log(this.state.search)
     }
 
     createFoodCards() {
@@ -27,10 +28,17 @@ class FoodsContainer extends React.Component {
         
         if (foods && this.state.search.length !== 0) {
             foods = foods.filter(food => food.description.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
+            
+            // if (foods.length === 0 && this.state.search.length !== 0) {
+            //     console.log("Message:", this.state.noFoodsFoundMessage)
+            //     this.setState({
+            //         ...this.state,
+            //         noFoodsFoundMessage: "No foods found!"
+            //     })
+            // }
         }
 
         if (foods) {
-
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
@@ -42,9 +50,10 @@ class FoodsContainer extends React.Component {
 
     render() {
         return (
-            <div className="">
-                <h3>Search:</h3>
-                <input type="text" vlaue={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
+            <div className="bg-">
+                {/* <h3 className="pt-3 text-">Search:</h3> */}
+                <input type="text" className="mt-3" placeholder="search" value={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
+                <p>{this.state.noFoodsFoundMessage}</p>
                 {this.createFoodCards()}
             </div>
         )
