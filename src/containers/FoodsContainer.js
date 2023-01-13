@@ -1,7 +1,7 @@
 import React from 'react'
 import FoodCard from '../components/FoodCard.js'
 import {connect} from 'react-redux'
-import {getFoods} from '../actions/foodActions.js'
+import {searchFoods} from '../actions/foodActions.js'
 
 
 class FoodsContainer extends React.Component {
@@ -12,7 +12,12 @@ class FoodsContainer extends React.Component {
     }
 
     componentDidMount() {
-        this.props.getFoods()
+        // this.props.getFoods()
+    }
+
+    searchFoods() {
+        this.props.searchFoods(this.state.search)
+        console.log("in searchFoods => search:", this.state.search)
     }
 
     handleFormChange = (e) => {
@@ -21,6 +26,7 @@ class FoodsContainer extends React.Component {
             ...this.state,
             search: value
         })
+        this.searchFoods()
     }
 
     createFoodCards() {
@@ -52,8 +58,9 @@ class FoodsContainer extends React.Component {
         return (
             <div className="bg-">
                 {/* <h3 className="pt-3 text-">Search:</h3> */}
-                <input type="text" className="mt-4  rounded border-info" placeholder="search" value={this.state.search} onChange={this.handleFormChange}></input><br></br><br></br>
-                <p>{this.state.noFoodsFoundMessage}</p>
+                <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onChange={this.handleFormChange}></input>
+                {/* <button className="ml-1 btn-primary" onClick={this.searchFoods()}>search</button> */}
+                {/* <p>{this.state.noFoodsFoundMessage}</p> */}
                 <div className="card-group">{this.createFoodCards()}</div>
                 
             </div>
@@ -72,7 +79,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getFoods: () => dispatch(getFoods())
+        searchFoods: () => dispatch(searchFoods())
     }
 }
 
