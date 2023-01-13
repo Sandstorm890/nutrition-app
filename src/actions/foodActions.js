@@ -3,14 +3,15 @@
 // import FoodData from '../resources/FoodData.json'
 export const setFoods = (foods) => ({type: 'GOT_FOODS', payload: foods})
 
-export const getFoods = () => {
+export const searchFoods = (term) => {
 
     return (dispatch) => {
-        fetch('FoodData.json')
-        .then(r => r.json())
-        .then(json => {
-            dispatch(setFoods(json))
-        })
+        // fetch(`https://api.nal.usda.gov/fdc/v1/foods/list?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=apple`)
+        // .then(r => r.json())
+        // .then(json => {
+        //     dispatch(setFoods(json))
+        // })
+        console.log("in actions =>", "term:", term)
     }
 
 }
