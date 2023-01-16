@@ -2,6 +2,7 @@ import React from 'react'
 import FoodCard from '../components/FoodCard.js'
 import {connect} from 'react-redux'
 import {searchFoods} from '../actions/foodActions.js'
+import {getFoods} from '../actions/foodActions.js'
 
 
 class FoodsContainer extends React.Component {
@@ -12,12 +13,16 @@ class FoodsContainer extends React.Component {
     }
 
     componentDidMount() {
-        // this.props.getFoods()
+        this.props.getFoods()
     }
 
-    searchFoods() {
-        this.props.searchFoods(this.state.search)
-        console.log("in searchFoods => search:", this.state.search)
+    handleSearch = (e) => {
+        e.preventDefault()
+
+        const searchTerm = this.state.search
+        this.props.searchFoods(searchTerm)
+        console.log("in searchFoods => search:", searchTerm)
+        
     }
 
     handleFormChange = (e) => {
@@ -26,11 +31,12 @@ class FoodsContainer extends React.Component {
             ...this.state,
             search: value
         })
-        this.searchFoods()
+        // this.searchFoods()
     }
 
     createFoodCards() {
         let foods = this.props.foods.FoundationFoods
+        console.log(this.props.foods)
         
         if (foods && this.state.search.length !== 0) {
             foods = foods.filter(food => food.description.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
@@ -59,7 +65,7 @@ class FoodsContainer extends React.Component {
             <div className="bg-">
                 {/* <h3 className="pt-3 text-">Search:</h3> */}
                 <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onChange={this.handleFormChange}></input>
-                {/* <button className="ml-1 btn-primary" onClick={this.searchFoods()}>search</button> */}
+                {/* <button className="ml-1 btn-primary" onClick={this.handleSearch}>search</button> */}
                 {/* <p>{this.state.noFoodsFoundMessage}</p> */}
                 <div className="card-group">{this.createFoodCards()}</div>
                 
@@ -79,7 +85,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        searchFoods: () => dispatch(searchFoods())
+        searchFoods: () => dispatch(searchFoods()),
+        getFoods: () => dispatch(getFoods())
     }
 }
 
