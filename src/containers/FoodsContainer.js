@@ -19,7 +19,8 @@ class FoodsContainer extends React.Component {
     }
 
     handleSearch = () => {
-        let URL = 'https://api.nal.usda.gov/fdc/v1/foods/search?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=' + this.state.search;
+        let URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=${this.state.search}&format=full&dataType=Foundation&pageSize=200&pageNumber=1`;
+        // let URL = 'https://api.nal.usda.gov/fdc/v1/food/1104812?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&format=full&nutrients=205'
         console.log(URL);
         fetch(URL, {
           method: 'GET',
@@ -34,6 +35,24 @@ class FoodsContainer extends React.Component {
                 foods: json.foods
             })
         })}
+
+    findServingSize = (food) => {
+        if (food.dataType == "Foundation") {
+            return "Serving"
+        }
+        if (food.householdServingFullText) {
+            return food.householdServingFullText != "1 ONZ" ? food.householdServingFullText : "1 oz"  
+        } else if (food.servingSize) {
+            switch(food.servingSizeUnit) {
+                case "g" || "G":
+                    return Math.round(food.servingSize/28) + " oz"
+                default: 
+                    return food.servingSize + food.servingSizeUnit    
+            }
+        } else {
+            return "Undefined"
+        }
+    }
 
 
     // handleSearch = (e) => {
@@ -74,9 +93,10 @@ class FoodsContainer extends React.Component {
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
+                brand={food.brandName}
                 carbs={(food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference")) ? food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference").value: "Undefined"}
-                
-                servingSize={food.servingSize ? food.servingSize + food.servingSizeUnit : "Undefined"}
+                servingSize={this.findServingSize(food)}
+                // servingSize={food.householdServingFullText ? food.householdServingFullText : food.servingSize ? food.servingSize + food.servingSizeUnit : "Undefined"}
                 />)
         }
     }
