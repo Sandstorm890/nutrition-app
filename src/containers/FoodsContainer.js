@@ -19,7 +19,7 @@ class FoodsContainer extends React.Component {
     }
 
     handleSearch = () => {
-        let URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=${this.state.search}&format=full&dataType=Foundation&pageSize=200&pageNumber=1`;
+        let URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=${this.state.search}&format=full&dataType=Foundation&dataType=Branded&pageSize=200&pageNumber=1`;
         // let URL = 'https://api.nal.usda.gov/fdc/v1/food/1104812?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&format=full&nutrients=205'
         console.log(URL);
         fetch(URL, {
@@ -40,6 +40,7 @@ class FoodsContainer extends React.Component {
         if (food.dataType == "Foundation") {
             return "Serving"
         }
+
         if (food.householdServingFullText) {
             return food.householdServingFullText != "1 ONZ" ? food.householdServingFullText : "1 oz"  
         } else if (food.servingSize) {
@@ -106,7 +107,7 @@ class FoodsContainer extends React.Component {
             <div className="bg-">
                 {/* <h3 className="pt-3 text-">Search:</h3> */}
                 <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onChange={this.handleFormChange}></input>
-                <button className="ml-1 btn-primary" onClick={this.handleSearch}>search</button>
+                <button className="btn-primary" onClick={this.handleSearch}>search</button>
                 {/* <p>{this.state.noFoodsFoundMessage}</p> */}
                 <div className="card-group">{this.createFoodCards()}</div>
                 
