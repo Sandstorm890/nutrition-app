@@ -1,8 +1,8 @@
 import React from 'react'
 import FoodCard from '../components/FoodCard.js'
 import {connect} from 'react-redux'
-import {searchFoods} from '../actions/foodActions.js'
-import { setFoods } from '../actions/foodActions.js'
+// import {searchFoods} from '../actions/foodActions.js'
+// import { setFoods } from '../actions/foodActions.js'
 import {getFoods} from '../actions/foodActions.js'
 
 
