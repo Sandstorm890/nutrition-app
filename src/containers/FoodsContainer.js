@@ -110,8 +110,8 @@ class FoodsContainer extends React.Component {
                 <button className="btn-primary" onClick={this.handleSearch}>search</button>
                 {/* <p>{this.state.noFoodsFoundMessage}</p> */}
                 <div className="card-group">{this.createFoodCards()}</div>
-                
-            </div>
+                <div class="mt-4">This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</div>
+                </div>
         )
     }
 
