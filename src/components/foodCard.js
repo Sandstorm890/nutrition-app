@@ -4,7 +4,7 @@ function FoodCard(props) {
 
     
     return(
-        <div className="card-body col-sm-12">
+        <div className="card-body col-sm-4">
 
             <div className="rounded shadow pl-2 pt-3 pb-2 bg-dark">
                 <h1>{(props.description)}</h1>

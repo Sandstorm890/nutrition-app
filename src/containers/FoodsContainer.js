@@ -105,10 +105,8 @@ class FoodsContainer extends React.Component {
     render() {
         return (
             <div className="bg-">
-                {/* <h3 className="pt-3 text-">Search:</h3> */}
                 <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onChange={this.handleFormChange}></input>
                 <button className="btn-primary" onClick={this.handleSearch}>search</button>
-                {/* <p>{this.state.noFoodsFoundMessage}</p> */}
                 <div className="card-group">{this.createFoodCards()}</div>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Attention!</strong> <br></br>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!
