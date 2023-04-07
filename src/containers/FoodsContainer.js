@@ -1,9 +1,15 @@
 import React from 'react'
 import FoodCard from '../components/foodCard.js'
 import {connect} from 'react-redux'
+import {getFoods} from '../actions/foodActions.js'
+import searchIcon from '../search-icon.png'
 // import {searchFoods} from '../actions/foodActions.js'
 // import { setFoods } from '../actions/foodActions.js'
-import {getFoods} from '../actions/foodActions.js'
+import { isContentEditable } from '@testing-library/user-event/dist/utils/index.js'
+
+// TODO
+// sort results by 'foodCategory'
+// 
 
 
 class FoodsContainer extends React.Component {
@@ -22,6 +28,8 @@ class FoodsContainer extends React.Component {
         let URL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&query=${this.state.search}&format=full&dataType=Foundation&dataType=Branded&pageSize=200&pageNumber=1`;
         // let URL = 'https://api.nal.usda.gov/fdc/v1/food/1104812?api_key=QhydPZDu2L1Q1Faaw3ZO6bJ53WEu66LdBHIMfdDF&format=full&nutrients=205'
         console.log(URL);
+
+        // this fetch really needs to move to foodActions when we figure out how to acces search term from there
         fetch(URL, {
           method: 'GET',
           headers: {
@@ -74,6 +82,19 @@ class FoodsContainer extends React.Component {
         // this.searchFoods()
     }
 
+    handleEnterKey = (e) => {
+        if (e.key === "Enter") {
+            this.handleSearch()
+        }
+    }
+
+    // class Input extends React.Component {
+    //     _handleKeyDown = (e) => {
+    //       if (e.key === 'Enter') {
+    //         console.log('do validate');
+    //       }
+    //     }
+
     createFoodCards() {
         let foods = this.state.foods
         console.log(foods)
@@ -95,6 +116,7 @@ class FoodsContainer extends React.Component {
                 key={food.fdcId} 
                 description={food.description} 
                 brand={food.brandName}
+                category={food.foodCategory}
                 carbs={(food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference")) ? food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference").value: "Undefined"}
                 servingSize={this.findServingSize(food)}
                 // servingSize={food.householdServingFullText ? food.householdServingFullText : food.servingSize ? food.servingSize + food.servingSizeUnit : "Undefined"}
@@ -104,8 +126,8 @@ class FoodsContainer extends React.Component {
 
     render() {
         return (
-            <div className="bg-">
-                <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onChange={this.handleFormChange}></input>
+            <div className="">
+                <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
                 <button className="btn-primary" onClick={this.handleSearch}>search</button>
                 <div className="card-group">{this.createFoodCards()}</div>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
