@@ -44,6 +44,15 @@ class FoodsContainer extends React.Component {
             })
         })}
 
+    // handleSearch = (e) => {
+    //     e.preventDefault()
+
+    //     const searchTerm = this.state.search
+    //     this.props.searchFoods(searchTerm)
+    //     console.log("in searchFoods => search:", searchTerm)
+        
+    // }
+
     findServingSize = (food) => {
         if (food.dataType == "Foundation") {
             return "Serving"
@@ -63,23 +72,12 @@ class FoodsContainer extends React.Component {
         }
     }
 
-
-    // handleSearch = (e) => {
-    //     e.preventDefault()
-
-    //     const searchTerm = this.state.search
-    //     this.props.searchFoods(searchTerm)
-    //     console.log("in searchFoods => search:", searchTerm)
-        
-    // }
-
     handleFormChange = (e) => {
         const value = e.target.value
         this.setState({
             ...this.state,
             search: value
         })
-        // this.searchFoods()
     }
 
     handleEnterKey = (e) => {
@@ -100,28 +98,10 @@ class FoodsContainer extends React.Component {
 
     }
 
-    // class Input extends React.Component {
-    //     _handleKeyDown = (e) => {
-    //       if (e.key === 'Enter') {
-    //         console.log('do validate');
-    //       }
-    //     }
-
     createFoodCards() {
         let foods = this.state.foods
         console.log(foods)
-        
-        // if (foods && this.state.search.length !== 0) {
-        //     foods = foods.filter(food => food.description.toLowerCase().includes(this.state.search.toLocaleLowerCase()))
-            
-        //     // if (foods.length === 0 && this.state.search.length !== 0) {
-        //     //     console.log("Message:", this.state.noFoodsFoundMessage)
-        //     //     this.setState({
-        //     //         ...this.state,
-        //     //         noFoodsFoundMessage: "No foods found!"
-        //     //     })
-        //     // }
-        // }
+
 
         if (foods) {
             return foods.map(food => <FoodCard 
@@ -131,7 +111,6 @@ class FoodsContainer extends React.Component {
                 category={food.foodCategory}
                 carbs={this.findCarbs(food)}
                 servingSize={this.findServingSize(food)}
-                // servingSize={food.householdServingFullText ? food.householdServingFullText : food.servingSize ? food.servingSize + food.servingSizeUnit : "Undefined"}
                 />)
         }
     }
@@ -143,9 +122,9 @@ class FoodsContainer extends React.Component {
                 <button className="btn-primary" onClick={this.handleSearch}>search</button>
                 <div className="card-group">{this.createFoodCards()}</div>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Attention!</strong> <br></br>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!
+                    <strong>Attention!</strong><br></br>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!
                 </div>
-                </div>
+            </div>
         )
     }
 
@@ -153,7 +132,6 @@ class FoodsContainer extends React.Component {
 
 const mapStateToProps = (state) => {
     const foods = state.foods
-
     return {
         foods: foods
     }
