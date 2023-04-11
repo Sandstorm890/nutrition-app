@@ -88,6 +88,18 @@ class FoodsContainer extends React.Component {
         }
     }
 
+    
+    // this should probably be rewritten
+    findCarbs = (food) => {
+
+        if (food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference")) {
+            return food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference").value
+        } else if (food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Sugars, total including NLEA")) {
+            return food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Sugars, total including NLEA").value
+        }
+
+    }
+
     // class Input extends React.Component {
     //     _handleKeyDown = (e) => {
     //       if (e.key === 'Enter') {
@@ -117,7 +129,7 @@ class FoodsContainer extends React.Component {
                 description={food.description} 
                 brand={food.brandName}
                 category={food.foodCategory}
-                carbs={(food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference")) ? food.foodNutrients.find(foodNutrient => foodNutrient.nutrientName === "Carbohydrate, by difference").value: "Undefined"}
+                carbs={this.findCarbs(food)}
                 servingSize={this.findServingSize(food)}
                 // servingSize={food.householdServingFullText ? food.householdServingFullText : food.servingSize ? food.servingSize + food.servingSizeUnit : "Undefined"}
                 />)
