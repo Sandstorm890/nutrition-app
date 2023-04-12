@@ -2,6 +2,7 @@ import React from 'react'
 import FoodCard from '../components/foodCard.js'
 import {connect} from 'react-redux'
 import {getFoods} from '../actions/foodActions.js'
+import Dropdown from 'react-bootstrap/Dropdown';
 import searchIcon from '../search-icon.png'
 // import {searchFoods} from '../actions/foodActions.js'
 // import { setFoods } from '../actions/foodActions.js'
@@ -17,7 +18,8 @@ class FoodsContainer extends React.Component {
     state = {
         search: "",
         noFoodsFoundMessage: "",
-        foods: []
+        foods: [],
+        categories: []
     }
 
     componentDidMount() {
@@ -50,7 +52,6 @@ class FoodsContainer extends React.Component {
     //     const searchTerm = this.state.search
     //     this.props.searchFoods(searchTerm)
     //     console.log("in searchFoods => search:", searchTerm)
-        
     // }
 
     findServingSize = (food) => {
@@ -80,13 +81,19 @@ class FoodsContainer extends React.Component {
         })
     }
 
+    handleCategoryChange = (categories) => {
+        this.setState({
+            ...this.state,
+            categories: categories
+        })
+    }
+
     handleEnterKey = (e) => {
         if (e.key === "Enter") {
             this.handleSearch()
         }
     }
-
-    
+  
     // this should probably be rewritten
     findCarbs = (food) => {
 
@@ -98,12 +105,35 @@ class FoodsContainer extends React.Component {
 
     }
 
+    createCategoriesDropdown() {
+        let categories = this.state.categories
+
+        if (categories.length != 0) {
+            return (
+                <Dropdown>
+                  <Dropdown.Toggle variant="info" id="dropdown-basic">
+                    Categories
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    {categories.map(category => <Dropdown.Item>{category}</Dropdown.Item>)}
+                  </Dropdown.Menu>
+                </Dropdown>
+              );
+        }
+    }
+
     createFoodCards() {
         let foods = this.state.foods
         console.log(foods)
 
 
         if (foods) {
+
+            // let categories = this.state.categories
+            this.state.categories = [...new Set(foods.map(item => item.foodCategory))]
+            // this.handleCategoryChange(categories)
+            // console.log(this.state.categories)
+
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
                 description={food.description} 
@@ -116,11 +146,19 @@ class FoodsContainer extends React.Component {
     }
 
     render() {
+
+        let foodCards = this.createFoodCards()
+
         return (
             <div className="">
-                <input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
-                <button className="btn-primary" onClick={this.handleSearch}>search</button>
-                <div className="card-group">{this.createFoodCards()}</div>
+                
+                
+                <div>
+                    <p className="pt-4">{this.createCategoriesDropdown()}
+                    </p><input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
+                    <button className="btn-primary" onClick={this.handleSearch}>search</button>
+                </div>
+                <div className="card-group">{foodCards}</div>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
                     <strong>Attention!</strong><br></br>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!
                 </div>
