@@ -124,7 +124,6 @@ class FoodsContainer extends React.Component {
 
     createFoodCards() {
         let foods = this.state.foods
-        console.log(foods)
 
 
         if (foods) {
