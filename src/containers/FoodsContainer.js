@@ -172,10 +172,8 @@ class FoodsContainer extends React.Component {
                             {this.createCategoriesDropdown()}
                         </Nav>
                         <Nav>
-                            <Form className="d-flex">
+                            <Form className="d-flex" onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}>
                                 <Form.Control
-                                onKeyDown={this.handleEnterKey} 
-                                onChange={this.handleFormChange}
                                 type="search"
                                 placeholder="Search Foods"
                                 className=""
