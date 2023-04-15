@@ -180,7 +180,7 @@ class FoodsContainer extends React.Component {
                                 aria-label="Search"
                                 />
                             </Form>
-                            <Button onClick={this.handleSearch} className="" variant="outline-info">Search</Button>
+                            <Button onClick={this.handleSearch} className="ml-1" variant="outline-info">Search</Button>
 
                         </Nav>
                     </Container>
