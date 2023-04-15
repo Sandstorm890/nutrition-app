@@ -158,7 +158,7 @@ class FoodsContainer extends React.Component {
         }
     }
 
-    // move all this logic to separate components
+    // move all this logic to separate files
     render() {
 
         let foodCards = this.createFoodCards()
