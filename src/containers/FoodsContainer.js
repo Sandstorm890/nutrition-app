@@ -172,7 +172,7 @@ class FoodsContainer extends React.Component {
                             {this.createCategoriesDropdown()}
                         </Nav>
                         <Nav>
-                            <Form className="d-flex" onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}>
+                            <Form className="d-flex" onChange={this.handleFormChange}>
                                 <Form.Control
                                 type="search"
                                 placeholder="Search Foods"
@@ -190,9 +190,10 @@ class FoodsContainer extends React.Component {
                     <p></p>
                     <div className="card-group pt-4">{foodCards}</div>
                     <div class="alert alert-warning fade show pl-4 pr-4" role="alert">
-                        <strong>Attention!</strong><br></br><p className="pt-2">This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</p><p>App layout currently works best on desktop</p>
+                        <strong>Attention!</strong><br></br>
+                        <p className="pt-2">This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</p>
+                        <p>App layout currently works best on desktop</p>
                     </div>
-
                 </div>
             </div>
         )
