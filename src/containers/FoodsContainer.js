@@ -7,9 +7,11 @@ import searchIcon from '../search-icon.png'
 // import {searchFoods} from '../actions/foodActions.js'
 // import { setFoods } from '../actions/foodActions.js'
 import { isContentEditable } from '@testing-library/user-event/dist/utils/index.js'
-import { Navbar } from 'react-bootstrap';
+import { Navbar, NavbarBrand } from 'react-bootstrap';
 import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 
 
@@ -113,19 +115,33 @@ class FoodsContainer extends React.Component {
 
     createCategoriesDropdown() {
         let categories = this.state.categories
+        // console.log(categories)
 
         if (categories.length != 0) {
             return (
-                <NavDropdown title="Categories" id="navbarScrollingDropdown">
-                    {categories.map(category => <Dropdown.Item>{category}</Dropdown.Item>)}
+                
+                
+                <NavDropdown className="font-weight-light h6" menuVariant="" title="Categories">
+                    {categories.map(category => <NavDropdown.Item>{category}</NavDropdown.Item>)}
                 </NavDropdown>
+
+                
               );
-        }
+        } 
+        
+        // else if (categories.length == 0) {
+        //         return (
+        //             <Nav.Link disabled>
+                        
+        //             </Nav.Link>)
+            
+        // }
     }
 
     createFoodCards() {
         let foods = this.state.foods
 
+        
 
         if (foods) {
 
@@ -142,20 +158,43 @@ class FoodsContainer extends React.Component {
         }
     }
 
+    // move all this logic to separate components
     render() {
 
         let foodCards = this.createFoodCards()
 
         return (
             <div className="">
-                <Navbar bg="dark" sticky="top" className="rounded">
-                    <input type="text" className="" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
-                    <Button onClick={this.handleSearch} variant="outline-info">Search</Button>
-                    {this.createCategoriesDropdown()}
+                <Navbar variant="" bg="dark" id="navbarScroll" sticky="" expand="lg" fixed="top" className="rounded">
+                    <Navbar.Brand className="text-light">Nutrition App</Navbar.Brand>
+                    <Container fluid>
+                        <Nav>
+                            {this.createCategoriesDropdown()}
+                        </Nav>
+                        <Nav>
+                            <Form className="d-flex">
+                                <Form.Control
+                                onKeyDown={this.handleEnterKey} 
+                                onChange={this.handleFormChange}
+                                type="search"
+                                placeholder="Search Foods"
+                                className=""
+                                aria-label="Search"
+                                />
+                            </Form>
+                            <Button onClick={this.handleSearch} className="" variant="outline-info">Search</Button>
+
+                        </Nav>
+                    </Container>
                 </Navbar>
-                <div className="card-group">{foodCards}</div>
-                <div class="alert alert-warning fade show pl-4 pr-4" role="alert">
-                    <strong>Attention!</strong><br></br><p>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</p>
+
+                <div className="">
+                    <p></p>
+                    <div className="card-group pt-4">{foodCards}</div>
+                    <div class="alert alert-warning fade show pl-4 pr-4" role="alert">
+                        <strong>Attention!</strong><br></br><p>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</p>
+                    </div>
+
                 </div>
             </div>
         )
