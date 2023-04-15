@@ -7,6 +7,12 @@ import searchIcon from '../search-icon.png'
 // import {searchFoods} from '../actions/foodActions.js'
 // import { setFoods } from '../actions/foodActions.js'
 import { isContentEditable } from '@testing-library/user-event/dist/utils/index.js'
+import { Navbar } from 'react-bootstrap';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+
+
 
 // TODO
 // sort results by 'foodCategory'
@@ -110,14 +116,9 @@ class FoodsContainer extends React.Component {
 
         if (categories.length != 0) {
             return (
-                <Dropdown>
-                  <Dropdown.Toggle variant="info" id="dropdown-basic">
-                    Categories
-                  </Dropdown.Toggle>
-                  <Dropdown.Menu>
+                <NavDropdown title="Categories" id="navbarScrollingDropdown">
                     {categories.map(category => <Dropdown.Item>{category}</Dropdown.Item>)}
-                  </Dropdown.Menu>
-                </Dropdown>
+                </NavDropdown>
               );
         }
     }
@@ -128,10 +129,7 @@ class FoodsContainer extends React.Component {
 
         if (foods) {
 
-            // let categories = this.state.categories
             this.state.categories = [...new Set(foods.map(item => item.foodCategory))]
-            // this.handleCategoryChange(categories)
-            // console.log(this.state.categories)
 
             return foods.map(food => <FoodCard 
                 key={food.fdcId} 
@@ -150,16 +148,14 @@ class FoodsContainer extends React.Component {
 
         return (
             <div className="">
-                
-                
-                <div>
-                    <p className="pt-4">{this.createCategoriesDropdown()}
-                    </p><input type="text" className="mt-4 mb-2 rounded border-info" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
-                    <button className="btn-primary" onClick={this.handleSearch}>search</button>
-                </div>
+                <Navbar bg="dark" sticky="top" className="rounded">
+                    <input type="text" className="" placeholder="search foods" value={this.state.search} onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}></input>
+                    <Button onClick={this.handleSearch} variant="outline-info">Search</Button>
+                    {this.createCategoriesDropdown()}
+                </Navbar>
                 <div className="card-group">{foodCards}</div>
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    <strong>Attention!</strong><br></br>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!
+                <div class="alert alert-warning fade show pl-4 pr-4" role="alert">
+                    <strong>Attention!</strong><br></br><p>This application is currently under development, and should NOT be used to make any dietary decisions in its current state!</p>
                 </div>
             </div>
         )
