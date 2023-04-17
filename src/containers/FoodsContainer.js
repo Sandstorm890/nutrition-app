@@ -165,16 +165,16 @@ class FoodsContainer extends React.Component {
 
         return (
             <div className="">
-                <Navbar variant="" bg="dark" id="navbarScroll" sticky="" expand="lg" fixed="top" className="rounded">
+                <Navbar bg="dark" id="navbarScroll" expand="lg" fixed="top" className="rounded">
                     <Navbar.Brand className="text-light">Nutrition App</Navbar.Brand>
                     <Container fluid>
                         <Nav>
                             {this.createCategoriesDropdown()}
                         </Nav>
                         <Nav>
-                            <Form className="d-flex" onKeyDown={this.handleEnterKey} onChange={this.handleFormChange}>
+                            <Form className="d-flex" onChange={this.handleFormChange}>
                                 <Form.Control
-                                type=""
+                                type="search"
                                 placeholder="Search Foods"
                                 className=""
                                 aria-label="Search"
@@ -187,7 +187,7 @@ class FoodsContainer extends React.Component {
                 </Navbar>
 
                 <div className="">
-                    <p></p>
+                    <p className="d-none mt-4">Spacer</p>
                     <div className="card-group pt-4">{foodCards}</div>
                     <div class="alert alert-warning fade show pl-4 pr-4" role="alert">
                         <strong>Attention!</strong><br></br>
